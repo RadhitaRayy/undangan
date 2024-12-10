@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Undangan Ulang Tahun Spesial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+            padding: 20px;
+        }
+        .invitation-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            transform: rotateX(10deg);
+            transition: all 0.5s ease;
+        }
+        .invitation-card:hover {
+            transform: rotateX(0deg) scale(1.02);
+        }
+        .birthday-icon {
+            font-size: 80px;
+            margin-bottom: 15px;
+            text-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        .event-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #ff6b6b, #6b47ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .event-details {
+            background: rgba(255,255,255,0.2);
+            border-radius: 15px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .event-details h3 {
+            margin-bottom: 10px;
+            color: #ffffff;
+            font-size: 1.2rem;
+        }
+        .event-details p {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        .rsvp-btn {
+            background: linear-gradient(to right, #ff6b6b, #6b47ff);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 300px;
+        }
+        .rsvp-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.3);
+        }
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @media screen and (max-width: 480px) {
+            .invitation-card {
+                padding: 20px;
+                margin: 0;
+                width: calc(100% - 40px);
+            }
+            .birthday-icon {
+                font-size: 60px;
+            }
+            .event-title {
+                font-size: 1.5rem;
+            }
+            .event-details p {
+                font-size: 0.8rem;
+            }
+            .rsvp-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="invitation-card">
+        <div class="birthday-icon">🎉</div>
+        <h1 class="event-title">Undangan Ulang Tahun</h1>
+        <p>Mari Kita Rayakan Momen Spesial Ini Bersama-sama!</p>
+        
+        <div class="event-details">
+            <h3>Detail Acara</h3>
+            <p>Tanggal: Rabu, 11 Desember 2024</p>
+            <p>Waktu: Pukul 19:00 WIB</p>
+            <p>Tempat: ESKALA Eatery Bar & Coffee</p>
+            <p>Alamat: Jl. Palagan Tentara Pelajar, Tegal Rejo, Sariharjo, Kec. Ngaglik, Kabupaten Sleman</p>
+        </div>
+
+        <button class="rsvp-btn" onclick="confirmAttendance()">Konfirmasi Kehadiran</button>
+    </div>
+
+    <canvas class="confetti"></canvas>
+
+    <script>
+        function confirmAttendance() {
+            const phoneNumber = '6281256762139';
+            const message = encodeURIComponent('Halo, saya akan menghadiri acara ulang tahun pada 11 Desember 2024 di ESKALA Eatery Bar & Coffee. Terima kasih!');
+            window.location.href = `https://wa.me/${phoneNumber}?text=${message}`;
+        }
+
+        // Konfetti Effect
+        const canvas = document.querySelector('.confetti');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        function createConfetti() {
+            const confettiCount = 300;
+            const confettiColors = ['#ff6b6b', '#4ecdc4', '#6b47ff', '#feca57'];
+
+            for (let i = 0; i < confettiCount; i++) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                const radius = Math.random() * 5 + 2;
+                const color = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+
+                ctx.beginPath();
+                ctx.fillStyle = color;
+                ctx.arc(x, y, radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        createConfetti();
+    </script>
+</body>
+</html>
